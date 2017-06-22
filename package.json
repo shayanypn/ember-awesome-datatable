@@ -1,9 +1,12 @@
 {
   "name": "ember-awesome-datatable",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "An ember-cli addon that allows you to quickly, easily and powerfully build tables views. ",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "ember-cli",
+    "ember-datatable",
+    "ember-data-table"
   ],
   "license": "MIT",
   "author": "",
