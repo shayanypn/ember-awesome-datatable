@@ -1,1 +1,16 @@
-{{yield}}
+{{#if isExpand }}
+<td colspan={{columnCount}}>
+	{{#if isComponent}}
+		{{component
+			column.component
+			output=output
+			params=expand.params
+			data=data }}
+	{{/if}}
+
+	{{#if isText}}
+		{{output}}
+	{{/if}}
+</td>
+{{yeild}}
+{{/if}}

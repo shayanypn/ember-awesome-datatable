@@ -1,1 +1,78 @@
-{{yield}}
+{{yeild}}
+
+
+
+{{#if isNotValid }}
+	Not Valid
+{{else}}
+
+	
+	{{#aw-datatable-element tagName=options.table.parent.tagName parent=options.table.parent grandParent=this }}
+		<table class="{{_className}}">
+			<thead>
+				<tr>
+					{{#each _dataColumn as |column| }}
+					<th
+						{{action '_onColumnSort' column }}
+						class="{{column._class}} "
+						>
+						{{column.label}}
+					</th>
+					{{/each}}
+				</tr>
+			</thead>
+			<tbody>
+				{{#if _isLoading}}
+					<tr>
+						<td colspan={{columnCount}}>
+							{{textLoading}}
+						</td>
+					</tr>
+				{{else}}
+					{{#each _dataRow as |data r_index|}}
+						<tr>
+							{{#each _dataColumn as |_column c_index|}}
+								{{aw-datatable-body
+									parent=this
+									data=data
+									column=_column
+									row_index=r_index
+									column_index=c_index
+									action_name='onChildAction'
+									}}
+							{{/each}}
+						</tr>
+						{{#if options.expandable.enable}}
+							{{aw-datatable-expand
+								parent=this
+								expand=options.expandable
+								data=data
+								columnCount=columnCount
+								}}
+						{{/if}}
+					{{else}}
+						<tr>
+							<td colspan={{columnCount}} >
+								{{textNoItem}}
+							</td>
+						</tr>
+					{{/each}}
+				{{/if}}
+			</tbody>
+		</table>
+
+		{{!----------------------------}}
+		{{!----------------------------}}
+		{{!--         Paging         --}}
+		{{#if isPaging}}
+			{{aw-datatable-paging
+				tagName=_pagination.tagName
+				className=_pagination.className
+				parent=this
+				pagination=_pagination
+				options=options
+				onPage='methodPage'
+				}}
+		{{/if}}
+	{{/aw-datatable-element}}
+{{/if}}

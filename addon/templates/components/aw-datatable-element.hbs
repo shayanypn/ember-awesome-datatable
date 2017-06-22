@@ -1,1 +1,15 @@
 {{yield}}
+{{#if isElement }}
+
+	{{#each elements as |element|}}
+		{{#aw-datatable-element
+			tagName=element.tagName
+			parent=element
+			grandParent=grandParent
+			}}
+
+			{{{element.text}}}
+		{{/aw-datatable-element}}
+	{{/each}}
+
+{{/if}}

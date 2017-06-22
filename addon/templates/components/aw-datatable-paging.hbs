@@ -1,1 +1,44 @@
-{{yield}}
+<ul class="pagination">
+	{{!----------------------------}}
+	{{!----------------------------}}
+	{{!--        Prev Button     --}}
+	{{#if isPrevPage}}
+		<li class="{{if pagination.prev_disable 'disabled' '' }}" >
+			<a {{action (action 'onPage' 'prev') }} href="#" aria-label="Previous">
+				{{#if options.paging.prev.text}}
+					{{{options.paging.prev.text}}}
+				{{else}}
+				<span aria-hidden="true">&laquo;</span>
+				{{/if}}
+			</a>
+		</li>
+	{{/if}}
+	
+
+	{{!----------------------------}}
+	{{!----------------------------}}
+	{{!--       Pages Numbers    --}}
+	{{#if isPageNum }}
+		{{#each pageNumbers as |page|}}
+		<li class={{if page.active 'active' '' }} >
+			<a {{action (action 'onPage' page) }} href="#">{{page.num}}</a>
+		</li>
+		{{/each}}
+	{{/if}}
+
+
+	{{!----------------------------}}
+	{{!----------------------------}}
+	{{!--        Next Button     --}}
+	{{#if isNextPage}}
+		<li class="{{if pagination.next_disable 'disabled' '' }}" >
+			<a {{action (action 'onPage' 'next') }} href="#" aria-label="Next">
+				{{#if options.paging.next.text}}
+					{{{options.paging.next.text}}}
+				{{else}}
+					<span aria-hidden="true">&raquo;</span>
+				{{/if}}
+			</a>
+		</li>
+	{{/if}}
+</ul>

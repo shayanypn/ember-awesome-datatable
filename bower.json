@@ -1,0 +1,26 @@
+{
+  "name": "ember-awesome-datatable",
+  "description": "An ember-cli addon that allows you to quickly, easily and powerfully build tables views.",
+  "main": "index.js",
+  "authors": [
+    "Shayan Yazdanpanah <shayanypn@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "ember-addon",
+    "ember-cli",
+    "ember-datatable",
+    "ember-data-table"
+  ],
+  "homepage": "https://github.com/shayanypn/ember-awesome-datatable",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "^2.18.1"
+  }
+}

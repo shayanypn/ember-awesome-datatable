@@ -1,1 +1,30 @@
-{{yield}}
+
+
+{{#if isComponent}}
+	{{component column.component output=output params=column.params column=column data=data }}
+{{/if}}
+
+
+{{#if isElement }}
+	{{#each elements as |element|}}
+		{{#aw-datatable-element tagName=templateEle.tagName parent=element grandParent=this }}
+			{{{element.text}}}
+		{{/aw-datatable-element}}
+	{{/each}}
+{{/if}}
+
+
+{{#if isText }}
+	{{prefix}}{{output}}{{suffix}}
+{{/if}}
+
+
+{{#if isCounter }}
+	{{prefix}}{{aw-datatable-counter
+		row_index
+		parent._page
+		parent._limit
+	}}{{suffix}}
+{{/if}}
+
+{{yeild}}
