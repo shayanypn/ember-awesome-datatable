@@ -276,6 +276,15 @@ export default Ember.Controller.extend({
 		},
 		onLimit(option){
 			this.dataTableConfig.methods.limit( option );
+		},
+		onEdit( item ){
+			console.log(`Action Edit called on item width id item.id` ,  'Action Edit');
+		},
+		onView( item ){
+			console.log(`Action View called on item width id item.id` ,  'Action View');
+		},
+		onDelete( item ){
+			console.log(`Action Delete called on item width id item.id` ,  'Action Delete');
 		}
 	}
 });
