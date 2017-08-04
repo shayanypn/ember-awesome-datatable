@@ -1,4 +1,14 @@
 
+{{#if isCheckBox }}
+	<span class="checkbox">
+		{{input
+			type="checkbox"
+			name="aw-datatable-checkbox"
+			checked=data._checked
+			}}
+		<label for="check-item"></label>
+	</span>
+{{/if}}
 
 {{#if isComponent}}
 	{{component column.component output=output params=column.params column=column data=data }}

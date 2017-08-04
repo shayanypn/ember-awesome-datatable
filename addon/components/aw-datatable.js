@@ -72,6 +72,33 @@ export default Ember.Component.extend({
 		return get(this._columns , 'content.length');
 	}),
 
+	/*************************\
+		ITEM SELECT
+	\*************************/
+	itemCheckedCount: computed('_data.@each._checked', function(){
+		let checked_data = get(this, '_data').filterBy('_checked' , true),
+		_columns = this._columns.filterBy('_isCheckbox' , true );
+
+		this.onEvent('itemChecked', this);
+
+		if ( checked_data.length === get(this, '_data.content').length && get(this, '_data.content').length > 0 ) {
+			_columns.forEach( item => {
+				set( item , '_checked', true );
+			});
+
+			this.onEvent('CheckedAll', this);
+
+		}else{
+			_columns.forEach( item => {
+				set( item , '_checked', false );
+			});
+		}
+
+		return checked_data.length;
+	}),
+	itemChecked: computed('_data.@each._checked', function(){
+		return get(this, '_data').filterBy('_checked' , true);
+	}),
 
 
 	/*************************\
@@ -316,6 +343,14 @@ export default Ember.Component.extend({
 					return false;
 				}
 				self.initial();
+			},
+			getCheckedData(){
+				let data = [];
+				get(self, 'itemChecked')
+				.forEach(item =>{
+					data.push( self.outputData(item) );
+				});
+				return data;
 			}
 		}));
 
@@ -440,6 +475,18 @@ export default Ember.Component.extend({
 		}
 
 
+		/*
+		* Check if any column has checkbox
+		*/
+		if ( get(this, '_columns').length ) {
+			
+			get(this, '_columns')
+			.filterBy('key','CHECKBOX')
+			.forEach( item => {
+				set(item , '_isCheckbox', true);
+				set(item , '_checked'   , false);
+			});
+		}
 
 
 		/* Call AfterRender Event */
@@ -569,6 +616,8 @@ export default Ember.Component.extend({
 		let clone_data = _clone( data );
 		delete clone_data.search_text;
 		delete clone_data._expand;
+		delete clone_data._checked;
+
 
 		return clone_data;
 	},
@@ -677,6 +726,11 @@ export default Ember.Component.extend({
 
 	actions: {
 
+		onCheckbox( column , ele ){
+			let data = get(this , '_data');
+
+			data.setEach('_checked' , ele.target.checked );
+		},
 
 
 		methodRefresh(){

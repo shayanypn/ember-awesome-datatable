@@ -6,7 +6,9 @@
 	Not Valid
 {{else}}
 
-	
+	{{#if itemCheckedCount}}
+		{{itemCheckedCount}} selected.
+	{{/if}}
 	{{#aw-datatable-element tagName=options.table.parent.tagName parent=options.table.parent grandParent=this }}
 		<table class="{{_className}}">
 			<thead>

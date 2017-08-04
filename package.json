@@ -9,12 +9,12 @@
     "ember-data-table"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "shayan yazdanpanah <shayanypn@gmail.com>",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "https://github.com/shayanypn/ember-awesome-datatable",
   "scripts": {
     "build": "ember build",
     "start": "ember server",

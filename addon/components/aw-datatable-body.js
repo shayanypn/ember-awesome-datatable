@@ -22,6 +22,8 @@ export default Ember.Component.extend({
 
 	isCounter: computed.equal('column.key', 'COUNTER'),
 
+	isCheckBox: computed.alias('column._isCheckbox'),
+
 	isText: computed('isElement,isComponent,isCounter', function(){
 		return ( !get( this , 'isElement' ) && !get( this , 'isComponent' ) && !get( this , 'isCounter' ) );
 	}),

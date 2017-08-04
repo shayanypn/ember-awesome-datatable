@@ -83,21 +83,22 @@ export default Ember.Controller.extend({
 				// }
 			},
 
-			// limit: -1,
+			// limit: -1, 
 			limit: 5,
 
-			expandable: {
-				enable: true,
-				rowExpanded: true,
-				render( data ){
-					return Ember.String.htmlSafe( `<pre>${JSON.stringify( data, null, 3)}</pre>` );
-				},
-				// component: 'component-status'
-			},
+			// expandable: {
+			// 	enable: false,
+			// 	rowExpanded: true,
+			// 	render( data ){
+			// 		return Ember.String.htmlSafe( `<pre>${JSON.stringify( data, null, 3)}</pre>` );
+			// 	},
+			// 	// component: 'component-status'
+			// },
 
 			// columns: 'COUNTER: ,uuid,name:Name,meta.thing_id:Info',
 			columns: [
 				'COUNTER: ',
+				'CHECKBOX: ',
 				{
 					key: 'icon',
 					label: 'Icon',
@@ -131,9 +132,6 @@ export default Ember.Controller.extend({
 						decimals: 2,
 						decimal_sep: '.',
 						thousands_sep: ','
-						// separator: ',',
-						// step: 3,
-						// ltr: true
 					}
 				},
 				{
