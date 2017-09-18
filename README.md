@@ -1,7 +1,7 @@
 # Ember-Awesome-Datatable
  Powerful ember add-on to build tables, it's allow you to sort,search,filter,render, and customize your datatable easily.
 
-[***Demo***](https://github.com/shayanypn/ember-awesome-datatable)
+[***Demo***](http://ember-datatable.shayanypn.ir/)
 
 
 ## Installation
