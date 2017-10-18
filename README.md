@@ -6,8 +6,23 @@
 
 ## Installation
 `ember install ember-awesome-datatable`
+
 OR
+
 `ember install https://github.com/shayanypn/ember-awesome-datatable`
+
+
+##Features
+ - Filter
+ - Search (local/ajax)
+ - Ajax Handler
+ - Column render(text,component,..)
+ - column expanding
+ - row number, checkbox
+ - paging (local/ajax)
+ - column show/hide
+ - event callbacks
+ -  and  what else do you want?? just create an issue. 
 
 ## Example
 
@@ -50,7 +65,7 @@ OR
 If you find an issue or missing functionality, please don't hesistate to open a pull request.
 
 ### Installation
-* `git clone` this repository
+* `git clone https://github.com/shayanypn/ember-awesome-datatable` 
 * `npm install`
 * `bower install`
 

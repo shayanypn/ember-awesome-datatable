@@ -1,3 +1,4 @@
+/* Promise */
 import Ember from 'ember';
 import layout from '../templates/components/aw-datatable';
 
@@ -34,7 +35,7 @@ cptlzFL = function(string) {
 
 
 
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
 	_isValid: true,
 
@@ -47,25 +48,20 @@ export default Ember.Component.extend({
 	_limit: 10,
 	_page: 1,
 
-
 	init() {
 		this._super(...arguments);
 
-
 		let options = get(this, 'options');
 		set(this, 'options' , options ? options : {});
-
 
 		Ember.run.scheduleOnce('afterRender', this, ()=> {
 			this.initial();
 		});
 	},
 
-
 	isNotValid: computed.not('_isValid'),
 
 	_className: computed.oneWay('options.table.className'),
-
 
 	columnCount: computed('_columns.@each', function(){
 
@@ -100,7 +96,6 @@ export default Ember.Component.extend({
 		return get(this, '_data').filterBy('_checked' , true);
 	}),
 
-
 	/*************************\
 		TEXT
 	\*************************/
@@ -110,14 +105,12 @@ export default Ember.Component.extend({
 		return Ember.String.htmlSafe( text ? text : ' Loading ... ' );
 	}),
 
-
 	textNoItem: computed('options.table.empty', function(){
 		let text = get(this, 'options.table.empty' );
 
 		return Ember.String.htmlSafe( text ? text : ' No item found! ' );
 	}),
 	
-
 	/*************************\
 		SEARCH
 	\*************************/
@@ -158,7 +151,6 @@ export default Ember.Component.extend({
 		return searched_data;
 	}),
 
-
 	/*************************\
 		SORT
 	\*************************/
@@ -168,7 +160,6 @@ export default Ember.Component.extend({
 
 		return column_order.map( column => `${column.key}:${(column._order_asc ? 'asc' : 'desc' )}` );
 	}),
-
 
 	/*************************\
 		DATA
@@ -192,8 +183,6 @@ export default Ember.Component.extend({
 			is_ajax_paging = true;
 		}
 
-
-
 		if ( get(this, '_sortDefinition.length') ) {
 			this.onEvent('didSort', this);
 		}
@@ -203,7 +192,6 @@ export default Ember.Component.extend({
 
 		/* return all data if limit equal -1  */
 		if ( limit === -1 ) { return data; }
-
 
 		for (var i = 0; i < limit; i++) {
 			let index = is_ajax_paging ? i : ( ( page - 1 ) * limit + i );
@@ -215,13 +203,9 @@ export default Ember.Component.extend({
 		return data.objectsAt(limited_data);
 	}),
 
-
-
 	isPaging: computed.alias('options.paging'),
 	_pagination: computed('_dataRow' , '_limit' , '_page' , function(){
 
-
-		
 		let paging = get(this , 'options.paging') ? get(this , 'options.paging') : {},
 		page_num = Math.ceil( get(this, '_sortedData.length') / get(this , '_limit') ),
 		pages,
@@ -230,7 +214,6 @@ export default Ember.Component.extend({
 		next_disable = false,
 		prev_disable = false;
 
-
 		for (let i = 1; i <= page_num ; i++) {
 			_pages_page.push({
 				num: i,
@@ -238,7 +221,6 @@ export default Ember.Component.extend({
 			});
 		}
 		pages = Ember.ArrayProxy.create({content: _pages_page });
-
 
 		/*
 		* NEXT Button
@@ -250,7 +232,6 @@ export default Ember.Component.extend({
 			next_disable = false;
 		}
 
-		
 		/*
 		* PREV Button
 		*/
@@ -261,8 +242,6 @@ export default Ember.Component.extend({
 			prev_disable = false;
 		}
 
-		
-
 		return Ember.Object.create({
 			tagName: 	( paging.tagName ? paging.tagName : 'nav' ),
 			className: 	( paging.className ? paging.className : '' ),
@@ -271,7 +250,6 @@ export default Ember.Component.extend({
 			prev_disable: prev_disable,
 		});
 	}),
-
 
 	/*************************\
 		COLUMN
@@ -294,7 +272,6 @@ export default Ember.Component.extend({
 		});
 	}),
 
-
 	/*********\
 	 ********* Initial 
 	\*********/
@@ -303,7 +280,6 @@ export default Ember.Component.extend({
 		options = get(this, 'options');
 
 		set(this, 'firstOption', options);
-
 
 		/*
 		* Initial methods
@@ -314,7 +290,7 @@ export default Ember.Component.extend({
 			},
 			search: query=>{
 				if ( Ember.typeOf(query) !== 'string' ) {
-					console.error('Search query should be string');
+					/*console.error('Search query should be string');*/
 					return;
 				}
 				self.onSearch( query );
@@ -339,7 +315,7 @@ export default Ember.Component.extend({
 				} else if ( Ember.typeOf(options) === 'object'){
 					self.set('options' , options );
 				}else{
-					console.error('error on re-intial');
+					/*console.error('error on re-intial');*/
 					return false;
 				}
 				self.initial();
@@ -354,18 +330,10 @@ export default Ember.Component.extend({
 			}
 		}));
 
-
 		set(this, '_limit', options.limit ? options.limit : 10 );
-
-
-
-
 
 		/* Call BeforeRender Event */
 		this.onEvent('beforeRender', this);
-
-
-
 
 		this.initialData( true );
 	},
@@ -377,7 +345,6 @@ export default Ember.Component.extend({
 	initialData(){
 		let self = this,
 		options = get(this,'firstOption');
-
 
 		// set(this , '_isLoading' , true );
 
@@ -391,13 +358,12 @@ export default Ember.Component.extend({
 
 		}, reason => {
 
-			console.log('on rejection' , reason );
+			/*console.log('on rejection' , reason );*/
 
 			// set(self, '_isLoading' , false );
 			set(self, '_isValid'   , false );
 		});
 	},
-
 
 	/*********\
 	 ********* Initial Column
@@ -405,7 +371,6 @@ export default Ember.Component.extend({
 	initialColumns(){
 		let self = this,
 		options = get(this, 'options');
-
 
 		if ( Ember.isArray( options.columns ) ) {
 
@@ -426,9 +391,7 @@ export default Ember.Component.extend({
 
 			set( this._columns , 'content' , _columns );
 
-
 		}else if( Ember.typeOf( options.columns ) === 'string' ){
-
 
 			options.columns.split(',')
 			.forEach( column => {
@@ -452,12 +415,10 @@ export default Ember.Component.extend({
 			});
 		}
 
-
 		/*
 		*  visible all columns
 		*/
 		this._columns.setEach('_isShow', true);
-
 
 		/*
 		* check Default ordering
@@ -474,7 +435,6 @@ export default Ember.Component.extend({
 			}
 		}
 
-
 		/*
 		* Check if any column has checkbox
 		*/
@@ -488,13 +448,11 @@ export default Ember.Component.extend({
 			});
 		}
 
-
 		/* Call AfterRender Event */
 		this.onEvent('afterRender', this);
 
 		set(this, '_isLoading' , false );
 	},
-
 
 	doData( options_data ){
 		let self = this,
@@ -503,13 +461,11 @@ export default Ember.Component.extend({
 
 			set(self , '_isLoading' , true );
 
-
 			/*------------------------------------------*\
 			\*----  data is pass to table as array  ----*/
 			if ( Ember.isArray(options_data) ) {
 
 				let data = self.mapData( options_data );
-
 
 				// on success
 				resolve(  data );
@@ -523,7 +479,6 @@ export default Ember.Component.extend({
 				( Ember.typeOf(options_data) === 'object' )
 			){
 
-
 				let ajax_option = Ember.typeOf(options_data) === 'object' ? options_data : { url: options_data },
 				ajax_map = Ember.typeOf(options_data.map) === 'function' ? options_data.map : null,
 				ajax_response = Ember.typeOf(options_data.response) === 'function' ? options_data.response : null;
@@ -535,42 +490,30 @@ export default Ember.Component.extend({
 					let read_path = ajax_option.readPath ? ajax_option.readPath : '',
 					data = ( read_path === '' ) ? ajax_data : get( ajax_data , read_path );
 
-
 					if ( ajax_response !== null ) {
 						data = ajax_response(data, options);
 					}
 
-
-
 					if ( !data ) {
-						console.error('data in null');
+						/*console.error('data in null');*/
 						reject( false );
 					}
-
-
-
 
 					if ( ajax_map !== null ) {
 						data = data.map( ajax_map );
 					}
 
-
-
 					if ( !data ) {
-						console.error('data in null');
+						/*console.error('data in null');*/
 						reject( false );
 					}
-
 
 					data = self.mapData( data );
 
-
 					if ( !data ) {
-						console.error('data in null');
+						/*console.error('data in null');*/
 						reject( false );
 					}
-
-
 
 					resolve( data );
 					set(self , '_isLoading' , false );
@@ -578,7 +521,7 @@ export default Ember.Component.extend({
 				}, function(reason) {
 					// on rejection
 
-					console.log('on rejection' , reason );
+					/*console.log('on rejection' , reason );*/
 				});
 
 			/*------------------------------------------*\
@@ -591,7 +534,6 @@ export default Ember.Component.extend({
 		});
 		return promise;
 	},
-
 
 	/*
 	* map entry data before rendering
@@ -610,7 +552,6 @@ export default Ember.Component.extend({
 		});
 	},
 
-
 	outputData( data ){
 
 		let clone_data = _clone( data );
@@ -618,10 +559,8 @@ export default Ember.Component.extend({
 		delete clone_data._expand;
 		delete clone_data._checked;
 
-
 		return clone_data;
 	},
-
 
 	ajaxSearch( search_ajax ){
 		let self = this;
@@ -636,12 +575,11 @@ export default Ember.Component.extend({
 			set(self , '_data.content', resolve);
 		}, reason => {
 
-			console.log('on rejection' , reason );
+			/*console.log('on rejection' , reason );*/
 			set(self, '_isLoading' , false );
 			set(self, '_isValid' , false );
 		});
 	},
-
 
 	ajaxPage( ajax_config , _process, page ){
 		let self = this;
@@ -651,7 +589,6 @@ export default Ember.Component.extend({
 		if ( _process === 'replace' ) {
 			set(self._data , 'content', [] );
 		}
-
 
 		this.doData( ajax_config )
 		.then( resolve => {
@@ -675,12 +612,11 @@ export default Ember.Component.extend({
 
 		}, reason => {
 
-			console.log('on rejection' , reason );
+			/*console.log('on rejection' , reason );*/
 			set(self, '_isLoading' , false );
 			set(self, '_isValid' , false );
 		});
 	},
-
 
 	/*############################################################################*\
 	\*############################################################################*/
@@ -707,7 +643,6 @@ export default Ember.Component.extend({
 		});
 	},
 
-
 	onEvent( name , params ){
 		let event = get(this , `options.events.${name}`);
 
@@ -717,12 +652,10 @@ export default Ember.Component.extend({
 		}
 	},
 
-
 	didRender(){
 		/* Call DidRender Event */
 		this.onEvent('didRender', this);
 	},
-
 
 	actions: {
 
@@ -732,15 +665,12 @@ export default Ember.Component.extend({
 			data.setEach('_checked' , ele.target.checked );
 		},
 
-
 		methodRefresh(){
 			Ember.run.debounce( this, this.initialData, 200 );
 
 			/* reset active page */
 			set( this , '_page' , 1);
-
 		},
-
 
 		_onColumnSort( _data_column ){
 
@@ -773,8 +703,6 @@ export default Ember.Component.extend({
 			set( this , '_page' , 1);
 		},
 
-
-
 		methodColumn(column , mode){
 			let _column;
 
@@ -784,7 +712,6 @@ export default Ember.Component.extend({
 					_column = query_column;
 				}
 			}
-
 
 			if ( _column ) {
 				switch( mode ){
@@ -801,8 +728,6 @@ export default Ember.Component.extend({
 				this.notifyPropertyChange('_searchQuery');
 			}
 		},
-
-
 
 		methodPage(_page){
 			let options = get(this, 'options'),
@@ -822,12 +747,11 @@ export default Ember.Component.extend({
 						this.ajaxPage( next_ajax , _process, current_page + 1 );
 					}else{
 
-						console.error('Error on setting page');
+						/*console.error('Error on setting page');*/
 						return;
 					}
 
 				}else if ( _page === 'prev' && paging && paging.prev && Ember.typeOf(paging.prev.ajax) === 'function' ){ // call prev ajax function
-
 
 					let fn = paging.prev.ajax,
 					prev_ajax = fn( current_page, options ),
@@ -838,19 +762,18 @@ export default Ember.Component.extend({
 						this.ajaxPage( prev_ajax , _process, current_page - 1 );
 					}else{
 
-						console.error('Error on setting page');
+						/*console.error('Error on setting page');*/
 						return;
 					}
 
 				}else{
-
 
 					let pages = get(this , '_pagination.pages'),
 					next_page = pages.findBy('num' , ( _page === 'prev' ) ? (current_page - 1) : (current_page + 1) );
 
 					if ( !next_page ) {
 
-						console.error('Error on setting page');
+						//console.error('Error on setting page');
 						return;
 					}
 					set( this, '_page' , next_page.num );
@@ -858,25 +781,21 @@ export default Ember.Component.extend({
 
 			}else if ( Ember.typeOf(_page) === 'number' ) {
 
-
 				let pages = get(this , '_pagination.pages'),
 				next_page = pages.findBy('num' , _page );
 
 				if ( !next_page ) {
 					
-					console.error('Error on setting page');
+					//console.error('Error on setting page');
 					return;
 				}
 				set( this, '_page' , next_page.num );
 
 			}else if ( Ember.typeOf(_page) === 'object' && _page.num ) {
 
-
 				set(this , '_page' , _page.num );
 			}
 		},
-
-
 
 		methodLimit(limit){
 
@@ -896,7 +815,7 @@ export default Ember.Component.extend({
 				this.sendAction('_action' , data );
 			}else{
 
-				console.error('Can\'t find action');
+				/*console.error('Can\'t find action');*/
 			}
 		}
 	},

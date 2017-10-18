@@ -219,38 +219,38 @@ export default Ember.Controller.extend({
 			events:{
 				didInsertElement(){
 					self.log.addObject('didInsertElement');
-					console.log('didInsertElement');
+					// console.log('didInsertElement');
 				},
 				didRender(){
 					self.log.addObject('didRender');
-					console.log('didRender');
+					// console.log('didRender');
 				},
 
 				willSort(){
 					self.log.addObject('willSort');
-					console.log('willSort');
+					// console.log('willSort');
 				},
 				didSort(){
 					self.log.addObject('didSort');
-					console.log('didSort');
+					// console.log('didSort');
 				},
 
 				willSearch(){
 					self.log.addObject('willSearch');
-					console.log('willSearch');
+					// console.log('willSearch');
 				},
 				didSearch(){
 					self.log.addObject('didSearch');
-					console.log('didSearch');
+					// console.log('didSearch');
 				},
 
 				willPaging(){
 					self.log.addObject('willPaging');
-					console.log('willPaging');
+					// console.log('willPaging');
 				},
 				didPaging(){
 					self.log.addObject('didPaging');
-					console.log('didPaging');
+					// console.log('didPaging');
 				},
 			}
 		});
@@ -275,14 +275,14 @@ export default Ember.Controller.extend({
 		onLimit(option){
 			this.dataTableConfig.methods.limit( option );
 		},
-		onEdit( item ){
-			console.log(`Action Edit called on item width id item.id` ,  'Action Edit');
-		},
-		onView( item ){
-			console.log(`Action View called on item width id item.id` ,  'Action View');
-		},
-		onDelete( item ){
-			console.log(`Action Delete called on item width id item.id` ,  'Action Delete');
-		}
+		// onEdit( item ){
+		// 	console.log(`Action Edit called on item width id item.id` ,  'Action Edit');
+		// },
+		// onView( item ){
+		// 	console.log(`Action View called on item width id item.id` ,  'Action View');
+		// },
+		// onDelete( item ){
+		// 	console.log(`Action Delete called on item width id item.id` ,  'Action Delete');
+		// }
 	}
 });

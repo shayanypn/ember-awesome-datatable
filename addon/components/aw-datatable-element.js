@@ -5,10 +5,9 @@ const {
 	Component,
 	computed,
 	get,
-	set
 } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
 	classNameBindings: ['itemClass'],
 
