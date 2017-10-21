@@ -1,4 +1,5 @@
-/* Promise */
+/* global Promise */
+/* eslint-disable no-console */
 import Ember from 'ember';
 import layout from '../templates/components/aw-datatable';
 
@@ -290,7 +291,7 @@ export default Component.extend({
 			},
 			search: query=>{
 				if ( Ember.typeOf(query) !== 'string' ) {
-					/*console.error('Search query should be string');*/
+					console.error('Search query should be string');
 					return;
 				}
 				self.onSearch( query );
@@ -315,7 +316,7 @@ export default Component.extend({
 				} else if ( Ember.typeOf(options) === 'object'){
 					self.set('options' , options );
 				}else{
-					/*console.error('error on re-intial');*/
+					console.error('error on re-intial');
 					return false;
 				}
 				self.initial();
@@ -358,7 +359,7 @@ export default Component.extend({
 
 		}, reason => {
 
-			/*console.log('on rejection' , reason );*/
+			console.log('on rejection' , reason );
 
 			// set(self, '_isLoading' , false );
 			set(self, '_isValid'   , false );
@@ -495,7 +496,7 @@ export default Component.extend({
 					}
 
 					if ( !data ) {
-						/*console.error('data in null');*/
+						console.error('data in null');
 						reject( false );
 					}
 
@@ -504,14 +505,14 @@ export default Component.extend({
 					}
 
 					if ( !data ) {
-						/*console.error('data in null');*/
+						console.error('data in null');
 						reject( false );
 					}
 
 					data = self.mapData( data );
 
 					if ( !data ) {
-						/*console.error('data in null');*/
+						console.error('data in null');
 						reject( false );
 					}
 
@@ -521,7 +522,7 @@ export default Component.extend({
 				}, function(reason) {
 					// on rejection
 
-					/*console.log('on rejection' , reason );*/
+					console.log('on rejection' , reason );
 				});
 
 			/*------------------------------------------*\
@@ -575,7 +576,7 @@ export default Component.extend({
 			set(self , '_data.content', resolve);
 		}, reason => {
 
-			/*console.log('on rejection' , reason );*/
+			console.log('on rejection' , reason );
 			set(self, '_isLoading' , false );
 			set(self, '_isValid' , false );
 		});
@@ -612,7 +613,7 @@ export default Component.extend({
 
 		}, reason => {
 
-			/*console.log('on rejection' , reason );*/
+			console.log('on rejection' , reason );
 			set(self, '_isLoading' , false );
 			set(self, '_isValid' , false );
 		});
@@ -747,7 +748,7 @@ export default Component.extend({
 						this.ajaxPage( next_ajax , _process, current_page + 1 );
 					}else{
 
-						/*console.error('Error on setting page');*/
+						console.error('Error on setting page');
 						return;
 					}
 
@@ -762,7 +763,7 @@ export default Component.extend({
 						this.ajaxPage( prev_ajax , _process, current_page - 1 );
 					}else{
 
-						/*console.error('Error on setting page');*/
+						console.error('Error on setting page');
 						return;
 					}
 
@@ -773,7 +774,7 @@ export default Component.extend({
 
 					if ( !next_page ) {
 
-						//console.error('Error on setting page');
+						console.error('Error on setting page');
 						return;
 					}
 					set( this, '_page' , next_page.num );
@@ -786,7 +787,7 @@ export default Component.extend({
 
 				if ( !next_page ) {
 					
-					//console.error('Error on setting page');
+					console.error('Error on setting page');
 					return;
 				}
 				set( this, '_page' , next_page.num );
@@ -815,7 +816,7 @@ export default Component.extend({
 				this.sendAction('_action' , data );
 			}else{
 
-				/*console.error('Can\'t find action');*/
+				console.error('Can\'t find action');
 			}
 		}
 	},
