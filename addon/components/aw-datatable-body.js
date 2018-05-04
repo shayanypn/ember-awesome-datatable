@@ -1,3 +1,4 @@
+/* global moment */
 import Ember from 'ember';
 import layout from '../templates/components/aw-datatable-body';
 
@@ -8,7 +9,7 @@ const {
 	set
 } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
 	tagName: 'td',
 
