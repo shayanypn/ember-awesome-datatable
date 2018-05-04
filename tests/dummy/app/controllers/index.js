@@ -21,14 +21,14 @@ export default Ember.Controller.extend({
 			},
 			order: 'first_name:asc',  // default order should be a key of selected columns
 			paging:{
-				pageNum: false,
+				pageNum: true,
 				tagName: 'nav',
 				className: 'nav',
 				next: {
 					enable: true,   /* ID show next page button or not */
 					disable: true,  /* Enable/Disable of next page button or not */
 					process: 'replace',   /* ::append,replace, function(){} */
-					text: ' next page ',  /* text of next page button */
+					// text: ' next page ',  /* text of next page button */
 					/*
 					*  @ajax request
 					*  return the 'data' attribute on options object
