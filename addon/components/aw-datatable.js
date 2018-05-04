@@ -45,27 +45,23 @@ export default Ember.Component.extend({
 	_columns: Ember.ArrayProxy.create({content: []}),
 
 	_limit: 10,
-	_page: 1,
 
+	_page: 1,
 
 	init() {
 		this._super(...arguments);
 
-
 		let options = get(this, 'options');
 		set(this, 'options' , options ? options : {});
-
 
 		Ember.run.scheduleOnce('afterRender', this, ()=> {
 			this.initial();
 		});
 	},
 
-
 	isNotValid: computed.not('_isValid'),
 
 	_className: computed.oneWay('options.table.className'),
-
 
 	columnCount: computed('_columns.@each', function(){
 
@@ -215,9 +211,8 @@ export default Ember.Component.extend({
 		return data.objectsAt(limited_data);
 	}),
 
-
-
 	isPaging: computed.alias('options.paging'),
+	
 	_pagination: computed('_dataRow' , '_limit' , '_page' , function(){
 
 
