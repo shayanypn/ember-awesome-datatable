@@ -11,7 +11,15 @@
 {{/if}}
 
 {{#if isComponent}}
-	{{component column.component output=output params=column.params column=column data=data }}
+	{{component column.component
+			output=output
+			params=column.params
+			column=column
+			data=data
+			notify=notifyVirtual
+			virtualAction=parent._virtualCall.action
+			virtualParams=parent._virtualCall.params
+		}}
 {{/if}}
 
 

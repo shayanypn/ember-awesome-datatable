@@ -1,2 +1,8 @@
 {{yield}}
-<i class="glyphicon glyphicon-ok"></i>
+{{if didNotify '' ''}}
+
+{{#if isLoading }}
+	loading...
+{{else}}
+	<i class="glyphicon glyphicon-ok"></i>
+{{/if}}

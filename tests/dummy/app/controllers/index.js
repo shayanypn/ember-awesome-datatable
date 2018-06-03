@@ -95,6 +95,9 @@ export default Ember.Controller.extend({
 			// 	// component: 'component-status'
 			// },
 
+			// hold checked item on the top of table, even on the search
+			holdCheckedItem: true,
+
 			// columns: 'COUNTER: ,uuid,name:Name,meta.thing_id:Info',
 			columns: [
 				'COUNTER: ',
@@ -262,7 +265,7 @@ export default Ember.Controller.extend({
 		onSearch(){
 			let query = document.getElementById('query-name').value;
 
-			this.dataTableConfig.methods.search( query ? query : 'du');
+			this.dataTableConfig.methods.search( query);
 		},
 		toggleColumn(column){
 			this.dataTableConfig.methods.column({
@@ -274,6 +277,9 @@ export default Ember.Controller.extend({
 		},
 		onLimit(option){
 			this.dataTableConfig.methods.limit( option );
+		},
+		onNotifyChecked(){
+			this.dataTableConfig.methods.notifyComponent('checked','sample-call','do-some-action');
 		},
 		// onEdit( item ){
 		// 	console.log(`Action Edit called on item width id item.id` ,  'Action Edit');

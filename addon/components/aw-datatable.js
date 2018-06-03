@@ -32,6 +32,13 @@ cptlzFL = function(string) {
 		}
 	}
 	return temp;
+}, GUID = function () {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 };
 
 
@@ -41,6 +48,10 @@ export default Component.extend({
 	_isValid: true,
 
 	firstOption: null,
+
+	_virtualCall: null,
+
+	_notify: null,
 
 	_data: Ember.ArrayProxy.create({content: []}),
 
@@ -54,6 +65,12 @@ export default Component.extend({
 
 		let options = get(this, 'options');
 		set(this, 'options' , options ? options : {});
+		set(this, '_notify', false);
+		set(this, '_virtualCall', Ember.Object.create({
+			method: 'all',
+			action: null,
+			params: null
+		}));
 
 		Ember.run.scheduleOnce('afterRender', this, ()=> {
 			this.initial();
@@ -142,8 +159,23 @@ export default Component.extend({
 	},
 	_searchedData: computed('_searchQuery', '_data.@each', function(){
 		let query = get(this, '_searchQuery').toLowerCase(),
+		options = get(this, 'options'),
 		data = get(this, '_data'),
 		searched_data = ( query === '' ) ? data : data.filter( item => item.search_text.match( query ) );
+
+		if ( options.holdCheckedItem === true ) {
+			if (searched_data.length && searched_data.length !== this.get('itemChecked').length ) {
+				this.get('itemChecked')
+				.forEach( item => {
+					let exist = searched_data.find(node => node._id === item._id );
+					if ( !exist )
+						searched_data.addObject(exist);
+				});
+			}else{
+				searched_data = this.get('itemChecked');
+			}
+		}
+
 
 		if ( query !== '' ){
 			this.onEvent('didSearch', this);
@@ -328,6 +360,14 @@ export default Component.extend({
 					data.push( self.outputData(item) );
 				});
 				return data;
+			},
+			notifyComponent(method, action, params){
+				if ( method == 'all' || method == 'checked' || method == 'unchecked') {
+					set(self, '_virtualCall.method', method);
+					set(self, '_virtualCall.action', action);
+					set(self, '_virtualCall.params', params);
+					self.toggleProperty('_notify');
+				}
 			}
 		}));
 
@@ -543,7 +583,8 @@ export default Component.extend({
 		return datas.map(item => {
 
 			set( item , 'search_text' , JSON.stringify(item).toLowerCase() );
-
+			set( item , '_id' , GUID() );
+			set( item , '_notify' , false );
 			set( item , '_expand' , false );
 			set( item , 'isExpand' , function(){
 				return get(this, '_expand') ? true : false;

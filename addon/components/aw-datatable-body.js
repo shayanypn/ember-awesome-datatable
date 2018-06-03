@@ -36,6 +36,22 @@ export default Component.extend({
 	prefix: computed.oneWay('column.prefix'),
 	suffix: computed.oneWay('column.suffix'),
 
+	notifyVirtual: computed('parent._notify', function(){
+		let method = get(this,'parent._virtualCall.method');
+
+		if (method == 'all') {
+			return get(this,'parent._notify');
+
+		}else if (method == 'checked' && get(this, 'data._checked') ) {
+			return get(this,'parent._notify');
+
+		}else if (method == 'unchecked' && !get(this, 'data._checked') ) {
+			return get(this,'parent._notify');
+		}
+
+		return false;
+	}),
+
 	output: computed('data', 'column', function(){
 		let column = get(this , 'column'),
 		data = get(this , 'data'),
