@@ -21,14 +21,14 @@ export default Ember.Controller.extend({
 			},
 			order: 'first_name:asc',  // default order should be a key of selected columns
 			paging:{
-				pageNum: false,
+				pageNum: true,
 				tagName: 'nav',
 				className: 'nav',
 				next: {
 					enable: true,   /* ID show next page button or not */
 					disable: true,  /* Enable/Disable of next page button or not */
 					process: 'replace',   /* ::append,replace, function(){} */
-					text: ' next page ',  /* text of next page button */
+					// text: ' next page ',  /* text of next page button */
 					/*
 					*  @ajax request
 					*  return the 'data' attribute on options object
@@ -94,9 +94,6 @@ export default Ember.Controller.extend({
 			// 	},
 			// 	// component: 'component-status'
 			// },
-
-			// hold checked item on the top of table, even on the search
-			holdCheckedItem: true,
 
 			// columns: 'COUNTER: ,uuid,name:Name,meta.thing_id:Info',
 			columns: [
@@ -265,7 +262,7 @@ export default Ember.Controller.extend({
 		onSearch(){
 			let query = document.getElementById('query-name').value;
 
-			this.dataTableConfig.methods.search( query);
+			this.dataTableConfig.methods.search( query ? query : 'du');
 		},
 		toggleColumn(column){
 			this.dataTableConfig.methods.column({
