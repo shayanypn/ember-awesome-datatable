@@ -1,6 +1,6 @@
 {
   "name": "ember-awesome-datatable",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Powerful ember add-on to build tables, it's allow you to sort,search,filter,render, and customize your datatable easily.",
   "keywords": [
     "ember-addon",
