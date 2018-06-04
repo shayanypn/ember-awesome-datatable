@@ -129,6 +129,7 @@ export default Component.extend({
 		return Ember.String.htmlSafe( text ? text : ' No item found! ' );
 	}),
 	
+
 	/*************************\
 		SEARCH
 	\*************************/
@@ -163,20 +164,6 @@ export default Component.extend({
 		data = get(this, '_data'),
 		searched_data = ( query === '' ) ? data : data.filter( item => item.search_text.match( query ) );
 
-		if ( options.holdCheckedItem === true ) {
-			if (searched_data.length && searched_data.length !== this.get('itemChecked').length ) {
-				this.get('itemChecked')
-				.forEach( item => {
-					let exist = searched_data.find(node => node._id === item._id );
-					if ( !exist )
-						searched_data.addObject(exist);
-				});
-			}else{
-				searched_data = this.get('itemChecked');
-			}
-		}
-
-
 		if ( query !== '' ){
 			this.onEvent('didSearch', this);
 		}
@@ -187,24 +174,32 @@ export default Component.extend({
 	/*************************\
 		SORT
 	\*************************/
-	_sortedData: computed.sort('_searchedData', '_sortDefinition'),
 	_sortDefinition: computed( '_columns.@each.{_ordering,_order_asc}' , function() {
 		let column_order =  get( this , '_columns' ).filterBy('_ordering', true);
 
 		return column_order.map( column => `${column.key}:${(column._order_asc ? 'asc' : 'desc' )}` );
 	}),
+	_sortedData: computed.sort('_searchedData', '_sortDefinition'),
 
 	/*************************\
 		DATA
 	\*************************/
 	_dataRow: computed( '_sortedData', '_data.@each', '_page' , function() {
 		let data = get(this, '_sortedData'),
+		holdCheckedItem = get(this , 'options.holdCheckedItem') ? get(this , 'options.holdCheckedItem') : false,
 		paging = get(this , 'options.paging') ? get(this , 'options.paging') : {},
 		limit = get(this , '_limit'),
 		page = get(this , '_page'),
 		limited_data = [],
 		data_length = data.length,
 		is_ajax_paging = false;
+
+		if ( holdCheckedItem === true ) {
+			data = data.filter( x => !x._checked );
+			data = get(this, 'itemChecked').concat(data);
+		}
+
+
 
 		if (
 				paging &&
@@ -310,6 +305,7 @@ export default Component.extend({
 	\*********/
 	initial(){
 		let self = this,
+		timer_search,
 		options = get(this, 'options');
 
 		set(this, 'firstOption', options);
@@ -326,7 +322,10 @@ export default Component.extend({
 					console.error('Search query should be string');
 					return;
 				}
-				self.onSearch( query );
+				clearTimeout(timer_search);
+				timer_search = setTimeout( () =>{
+					self.onSearch( query );
+				},150);
 			},
 			column: (option, status) => {
 				option = ( Ember.typeOf(option) === 'string' ) ? { key: option } : option;

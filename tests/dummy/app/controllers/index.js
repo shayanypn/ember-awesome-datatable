@@ -83,8 +83,9 @@ export default Ember.Controller.extend({
 				// }
 			},
 
-			// limit: -1, 
-			limit: 5,
+			limit: -1, 
+			// limit: 5,
+			holdCheckedItem: true,
 
 			// expandable: {
 			// 	enable: false,
@@ -262,7 +263,7 @@ export default Ember.Controller.extend({
 		onSearch(){
 			let query = document.getElementById('query-name').value;
 
-			this.dataTableConfig.methods.search( query ? query : 'du');
+			this.dataTableConfig.methods.search( query ? query : '');
 		},
 		toggleColumn(column){
 			this.dataTableConfig.methods.column({

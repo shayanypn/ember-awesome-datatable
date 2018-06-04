@@ -112,6 +112,12 @@ export default Component.extend({
 	},
 
 	actions:{
+		onChecked(){
+			const parent = get(this ,'parent');
+			setTimeout(()=>{
+				parent.notifyPropertyChange('_searchQuery');
+			}, 100);
+		},
 		onClick(action){
 
 			let data = get(this , 'data' );
